@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디미고인 잔류 신청 현황</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        *{
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif !important;
+        }
+        html, body{
+            text-align: center !important;
+            /* max-width: 100%; */
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            overflow: hidden;
+        }
+        .btn-outline-primary, .btn-outline-danger{
+            border-width: 2px !important;
+            font-weight: bold !important;
+        }
+        .btn-primary, .btn-danger{
+            padding: 6px !important;
+        }
+        .scrollDiv{
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <!-- 서버 다운 알림 : Start -->
+    <!-- <div style="position: fixed; width: 100vw; height: 100vh; background-color: #00000055; z-index: 300; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center;">
+        <div style="background-color: white; border: 10px black double; border-radius: 10px; padding: 20px;">
+            <h3 style="margin: 0 0 6px 0;">현재 서버가 다운되어 서비스 이용이 어렵습니다.</h3>
+            <p style="margin: 0;">이용에 불편을 드려 죄송합니다. 예상 복구 시점은 2022년 07월 22일(금) 오후 11시경입니다.</p>
+        </div>
+    </div> -->
+    <!-- 서버 다운 알림 : End -->
+    <div class="scrollDiv">
+        <br><br>
+        <div class="page-header" style="text-align: left; display: inline-block; width: fit-content;">
+            <a style="color: gray;">8월 13일 ~ 8월 15일</a>
+            <h1 style="font-weight: bold;">디미고인 잔류 신청 현황</h1>
+        </div>
+        <br><br>
+        <div style="text-align: center; display: block;" id="table3nd">
+            <div style="text-align: center; display: inline-block;" id="table3nd">
+                <table class="table table-striped" id="tablepeople">
+                    <thead>
+                        <tr>
+                            <th scope="col">학년/반</th>
+                            <th scope="col">인원수</th>
+                            <th scope="col">성별</th>
+                            <th scope="col">신청 인원</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div style="text-align: center; display: block; overflow: scroll; width: 100vw;" id="table3nd">
+            <a style="color: gray;">Tip) 잔류 좌석은 3학년만 선택합니다.</a><br>
+            <a style="color: gray;">Tip) 좌석이 잘려 보인다면 우측으로 스크롤하세요.</a><br>
+            <div style="text-align: center; display: inline-block;" id="table3nd">
+                <table id="tableadded">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">1</th>
+                            <th scope="col">2</th>
+                            <th scope="col">3</th>
+                            <th scope="col">4</th>
+                            <th scope="col">5</th>
+                            <th scope="col">6</th>
+                            <th scope="col">7</th>
+                            <th scope="col">8</th>
+                            <th scope="col">9</th>
+                            <th scope="col">10</th>
+                            <th scope="col">11</th>
+                            <th scope="col">12</th>
+                            <th scope="col">13</th>
+                            <th scope="col">14</th>
+                            <th scope="col">15</th>
+                            <th scope="col">16</th>
+                            <th scope="col">17</th>
+                            <th scope="col">18</th>
+                        </tr>
+                    </thead>
+                    <input type="radio" value="null" name="place" checked style="display: none;">
+                </table>
+            </div>
+        </div>
+        <br>
+        <div style="width: 90vw; max-width: 400px; display: inline-block;">
+            <div class="d-grid gap-2">
+                <input class="btn btn-primary" type="button" value="잔류 신청하기" style="font-weight: bold;" onclick="location.href='https://stay.dimigo.me'">
+                <input class="btn btn-outline-primary" type="button" value="잔류 수정 및 취소하기" onclick="alert('잔류 수정 및 취소는 010-9539-4321 또는 생활관 담당 선생님께 문의해주세요.')">
+            </div>
+        </div>
+        <br><br><br>
+    </div>
+    <script>
+        var tableid = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
+        var code = "";
+        for(var i = 0; i < 14; i++){
+            code += '<tr>';
+            code += '<th scope="row">' + tableid[i] + '</th>'
+            for(var j = 1; j <= 18; j++){
+                // A10~A18 background color primary
+                if(i == 0 && j >= 10 && j <= 18){
+                    code += '<td><input type="radio" name="place" class="btn-check" id="' + tableid[i] + String(j) + '" value="' + tableid[i] + String(j) + '" disabled><label class="btn btn-outline-primary" id="Z' + tableid[i] + String(j) + '" for="' + tableid[i] + String(j) + '">' + tableid[i] + String(j) + '</label></td>';
+                } else if(i == 1 && j >= 10 && j <= 18){
+                    code += '<td><input type="radio" name="place" class="btn-check" id="' + tableid[i] + String(j) + '" value="' + tableid[i] + String(j) + '" disabled><label class="btn btn-outline-primary" id="Z' + tableid[i] + String(j) + '" for="' + tableid[i] + String(j) + '">' + tableid[i] + String(j) + '</label></td>';
+                } else if(j <= 9){
+                    code += '<td><input type="radio" name="place" class="btn-check" id="' + tableid[i] + String(j) + '" value="' + tableid[i] + String(j) + '" disabled><label class="btn btn-outline-primary" id="Z' + tableid[i] + String(j) + '" for="' + tableid[i] + String(j) + '">' + tableid[i] + String(j) + '</label></td>';
+                } else{
+                    code += '<td><input type="radio" name="place" class="btn-check" id="' + tableid[i] + String(j) + '" value="' + tableid[i] + String(j) + '" disabled><label class="btn btn-outline-danger" id="Z' + tableid[i] + String(j) + '" for="' + tableid[i] + String(j) + '">' + tableid[i] + String(j) + '</label></td>';
+                }
+            }
+            code += '</tr>';
+        }
+        document.getElementById("tableadded").innerHTML += code;
+        // console.log(document.getElementById("tableadded").innerHTML);
+        var delList1 = [2, 4, 6, 8, 10, 12, 14, 16, 18];
+        var delList2 = [1, 3, 5, 7, 9, 11, 13, 15, 17];
+        for(var i = 0; i < 14; i++){
+            for(var j = 1; j <= 18; j++){
+                if(i % 2 == 0){
+                    if(delList1.includes(j)){
+                        document.getElementById(tableid[i] + String(j)).disabled = true;
+                        document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                    }
+                } else{
+                    if(delList2.includes(j)){
+                        document.getElementById(tableid[i] + String(j)).disabled = true;
+                        document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                    }
+                }
+                if(i >= 12 && j >= 10){
+                    document.getElementById(tableid[i] + String(j)).disabled = true;
+                    document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-secondary";
+                }
+            }
+        }
+        var objText = "";
+        fetch("https://api.findflag.kr/dimigoin/stay/get", {
+            method: 'GET'
+        })
+        .then(function(response){
+            if (!response.ok){
+                alert("알 수 없는 오류로 인해 데이터를 로드할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+            } else{
+                response.text().then(function (text){
+                    objText = text;
+                    const obj = JSON.parse(text);
+                    for(var i = 0; i < obj["place"].length; i++){
+                        document.getElementById(obj["place"][i]).disabled = true;
+                        // A10~A18 background color primary
+                        if(Number(obj["place"][i].slice(1)) <= 9){
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        } else if(Number(obj["place"][i].slice(1)) >= 10 && obj["place"][i].slice(0, 1) == "A"){
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        } else if(Number(obj["place"][i].slice(1)) >= 10 && obj["place"][i].slice(0, 1) == "B"){
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        } else{
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-danger";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        }
+                        // // console.log(obj["place"][0].slice(0, 1));
+                        // // console.log(obj["place"][0]);
+                    }
+                });
+            }
+        }).catch(function(err){
+            alert("알 수 없는 오류로 인해 데이터를 로드할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+        });
+        var objText = "";
+        fetch("https://api.findflag.kr/dimigoin/stay/get/people", {
+            method: 'GET'
+        })
+        .then(function(response){
+            if (!response.ok){
+                alert("알 수 없는 오류로 인해 데이터를 로드할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+            } else{
+                response.text().then(function (text){
+                    objText = text;
+                    const obj = JSON.parse(text);
+                    // for(var i = 0; i < obj.length; i++){
+                    //     document.getElementById(obj["place"][i]).disabled = true;
+                    //     document.getElementById("Z" + obj["place"][i]).className = "btn btn-secondary";
+                    //     document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                    // }
+                    // console.log(obj)
+                    code = "";
+                    var ms = 0;
+                    var fms = 0;
+                    var ams = 0;
+                    var afms = 0;
+                    for(var i = 1; i <= 3; i++){ // 학년
+                        ms = 0;
+                        fms = 0;
+                        for(var j = 1; j <= 6; j++){ // 반
+                            for(var k = 1; k <= 2; k++){ // 성별
+                                if(k == 1){
+                                    if(i == 1){
+                                        code += '<tr style="background-color: #c7d8f2;"><th scope="row">' + String(i) + "-" + String(j) + '</th>';
+                                    } else if(i == 2){
+                                        code += '<tr style="background-color: #cbddd2;"><th scope="row">' + String(i) + "-" + String(j) + '</th>';
+                                    } else if(i == 3){
+                                        code += '<tr style="background-color: #faf0d7;"><th scope="row">' + String(i) + "-" + String(j) + '</th>';
+                                    }
+                                    if(obj["M" + String(i) + String(j)] != undefined){
+                                        if(obj["F" + String(i) + String(j)] != undefined){
+                                            var str1 = obj["M" + String(i) + String(j)].split(" ");
+                                            var str2 = obj["F" + String(i) + String(j)].split(" ");
+                                            code += '<td><a>' + String(str1.length + str2.length) + '</a></td>';
+                                            ms += str1.length
+                                            fms += str2.length
+                                        } else{
+                                            var str1 = obj["M" + String(i) + String(j)].split(" ");
+                                            code += '<td><a>' + String(str1.length) + '</a></td>';
+                                            ms += str1.length
+                                        }
+                                        code += '<td><a>' + "남" + '</a></td>';
+                                        var temp1 = obj["M" + String(i) + String(j)].split(" ");
+                                        var temp2 = temp1.sort();
+                                        code += '<td><a>' + temp2.join(" ") + '</a></td>';
+                                    } else{
+                                        if(obj["F" + String(i) + String(j)] != undefined){
+                                            var str1 = obj["F" + String(i) + String(j)].split(" ");
+                                            code += '<td><a>' + String(str1.length) + '</a></td>';
+                                            fms += str1.length
+                                        } else{
+                                            code += '<td><a>' + "0" + '</a></td>';
+                                        }
+                                        code += '<td><a>' + "남" + '</a></td>';
+                                        code += '<td><a>' + "-" + '</a></td>';
+                                    }
+                                    code += '</tr>';
+                                } else{
+                                    if(i == 1){
+                                        code += '<tr style="background-color: #e1ecff;"><th scope="row"></th>';
+                                    } else if(i == 2){
+                                        code += '<tr style="background-color: #f5fcf8;"><th scope="row"></th>';
+                                    } else if(i == 3){
+                                        code += '<tr style="background-color: #fff7e4;"><th scope="row"></th>';
+                                    }
+                                    if(obj["F" + String(i) + String(j)] != undefined){
+                                        code += '<td></td>';
+                                        code += '<td><a>' + "여" + '</a></td>';
+                                        var temp1 = obj["F" + String(i) + String(j)].split(" ");
+                                        var temp2 = temp1.sort();
+                                        code += '<td><a>' + temp2.join(" ") + '</a></td>';
+                                    } else{
+                                        code += '<td></td>';
+                                        code += '<td><a>' + "여" + '</a></td>';
+                                        code += '<td><a>' + "-" + '</a></td>';
+                                    }
+                                    code += '</tr>';
+                                }
+                            }
+                        }
+                        if(i == 1){
+                            code += '<tr style="background-color: #c7d8f2;"><th scope="row"><a>총계</a></th><td><a>' + String(ms) + '</a></td><td><a>남</a></td><th></th></tr>';
+                            code += '<tr style="background-color: #e1ecff;"><th scope="row"></th><td><a>' + String(fms) + '</a></td><td><a>여</a></td><th></td></tr>';
+                            code += '<tr style="background-color: #c7d8f2;"><th scope="row"></th><td><a>' + String(ms + fms) + '</a></td><td><a>총계</a></td><th></td></tr>';
+                        } else if(i == 2){
+                            code += '<tr style="background-color: #cbddd2;"><th scope="row"><a>총계</a></th><td><a>' + String(ms) + '</a></td><td><a>남</a></td><th></th></tr>';
+                            code += '<tr style="background-color: #f5fcf8;"><th scope="row"></th><td><a>' + String(fms) + '</a></td><td><a>여</a></td><th></td></tr>';
+                            code += '<tr style="background-color: #cbddd2;"><th scope="row"></th><td><a>' + String(ms + fms) + '</a></td><td><a>총계</a></td><th></td></tr>';
+                        } else if(i == 3){
+                            code += '<tr style="background-color: #faf0d7;"><th scope="row"><a>총계</a></th><td><a>' + String(ms) + '</a></td><td><a>남</a></td><th></th></tr>';
+                            code += '<tr style="background-color: #fff7e4;"><th scope="row"></th><td><a>' + String(fms) + '</a></td><td><a>여</a></td><th></td></tr>';
+                            code += '<tr style="background-color: #faf0d7;"><th scope="row"></th><td><a>' + String(ms + fms) + '</a></td><td><a>총계</a></td><th></td></tr>';
+                        }
+                        ams += ms;
+                        afms += fms;
+                    }
+                    code += '<tr style="background-color: #cccccc;"><th scope="row"><a>전체총계</a></th><td><a>' + String(ams) + '</a></td><td><a>남</a></td><th></th></tr>';
+                    code += '<tr style="background-color: #eeeeee;"><th scope="row"></th><td><a>' + String(afms) + '</a></td><td><a>여</a></td><th></td></tr>';
+                    code += '<tr style="background-color: #cccccc;"><th scope="row"></th><td><a>' + String(ams + afms) + '</a></td><td><a>총계</a></td><th></td></tr>';
+                    document.getElementById("tablepeople").innerHTML += code;
+                });
+            }
+        }).catch(function(err){
+            alert("알 수 없는 오류로 인해 데이터를 로드할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+        });
+    </script>
+</body>
+</html>

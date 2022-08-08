@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디미고인 잔류 신청</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://stay.dimigo.me">
+    <meta property="og:image" content="https://stay.dimigo.me/mainimg.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        *{
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif !important;
+            word-break: keep-all;
+        }
+        html, body{
+            text-align: center !important;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            overflow: hidden;
+        }
+        .btn-outline-primary, .btn-outline-danger{
+            border-width: 2px !important;
+            font-weight: bold !important;
+        }
+        .btn-primary, .btn-danger{
+            padding: 6px !important;
+        }
+        .scrollDiv{
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        .animations{
+            animation: color 4s infinite;
+        }
+        @keyframes color{
+            0%   { background: #33CCCC; }
+            20%  { background: #33CC36; }
+            40%  { background: #B8CC33; }
+            60%  { background: #FCCA00; }
+            80%  { background: #33CC36; }
+            100% { background: #33CCCC; }
+        }
+/*         .btn-outline-secondary{
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="black" /></svg>');
+        } */
+    </style>
+</head>
+<body>
+    <!-- 서버 다운 알림 : Start -->
+    <!-- <div style="position: fixed; width: 100vw; height: 100vh; background-color: #00000055; z-index: 300; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center;">
+        <div style="background-color: white; border: 10px black double; border-radius: 10px; padding: 20px;">
+            <h3 style="margin: 0 0 6px 0;">현재 서버가 다운되어 서비스 이용이 어렵습니다.</h3>
+            <p style="margin: 0;">이용에 불편을 드려 죄송합니다. 예상 복구 시점은 2022년 07월 22일(금) 오후 11시경입니다.</p>
+        </div>
+    </div> -->
+    <!-- 서버 다운 알림 : End -->
+    <div class="scrollDiv">
+        <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-DUvwNopj2LDD6Mrh" data-ad-width="320" data-ad-height="50"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        <br>
+        <a style="color: gray; font-size: 12px;">ⓘ 서버비 충당을 위해 배너광고가 운영되고 있습니다. 양해 부탁드립니다.</a>
+        <br><br>
+        <div class="page-header" style="text-align: left; display: inline-block; width: fit-content;">
+            <a style="color: gray;">8월 13일 ~ 8월 15일</a>
+            <h1 style="font-weight: bold;">디미고인 잔류 신청</h1>
+        </div>
+        <br><br>
+        <div style="width: 90vw; max-width: 600px; display: inline-block;">
+            <div class="alert alert-danger" role="alert">금주는 토요일부터 월요일까지 3일 간 잔류하는 점을 꼭 인지하시고 신청하시기 바랍니다.</div>
+        </div>
+        <br>
+        <form action="https://api.findflag.kr/dimigoin/stay" method="post" id="form">
+            <div style="width: 90vw; max-width: 600px; display: inline-block;">
+                <div class="form-floating mb-3">
+                    <input type="text" name="number" class="form-control" id="number" placeholder="1101" onchange="clickNumber()" onclick="clickInput()" required>
+                    <label for="number">학번(네자리)</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="홍길동" onclick="clickInput()" required>
+                    <label for="name">이름</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="gender" id="gender" onchange="clickGender()" onclick="clickInput()" required>
+                        <option selected value="-">성별을 선택하세요</option>
+                        <option value="M">남</option>
+                        <option value="F">여</option>
+                    </select>
+                    <label for="gender">성별</label>
+                </div>
+            </div>
+            <div style="text-align: center; display: none; overflow-x: scroll; width: 100vw;" id="table3nd">
+                <a style="color: gray;">Tip) 좌석이 잘려 보인다면 우측으로 스크롤하세요.</a><br>
+                <div style="text-align: center; display: inline-block;" id="table3nd">
+                    <table id="tableadded">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">1</th>
+                                <th scope="col">2</th>
+                                <th scope="col">3</th>
+                                <th scope="col">4</th>
+                                <th scope="col">5</th>
+                                <th scope="col">6</th>
+                                <th scope="col">7</th>
+                                <th scope="col">8</th>
+                                <th scope="col">9</th>
+                                <th scope="col">10</th>
+                                <th scope="col">11</th>
+                                <th scope="col">12</th>
+                                <th scope="col">13</th>
+                                <th scope="col">14</th>
+                                <th scope="col">15</th>
+                                <th scope="col">16</th>
+                                <th scope="col">17</th>
+                                <th scope="col">18</th>
+                            </tr>
+                        </thead>
+                        <input type="radio" value="null" name="place" checked style="display: none;">
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="collapse" id="collapseExample">
+                <div style="width: 90vw; max-width: 600px; display: inline-block;">
+                    <div class="alert alert-primary" role="alert" id="info1">
+                        <h5>아래의 입력 정보가 맞는지 확인하세요.</h5><br>
+                        <a style="color: black;" id="num1"></a><br>
+                        <a style="color: black;" id="num2"></a><br>
+                        <a style="color: black;" id="num3"></a><br>
+                        <div id="num5">
+                            <a style="color: black;" id="num4"></a><br>
+                        </div>
+                        <br>
+                        <h6>모든 입력 정보가 올바르다면</h6>
+                        <h6>"잔류 신청하기" 버튼을 한번 더 눌러 잔류 신청하세요.</h6>
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="info2"></div>
+                </div>
+            </div>
+            <div style="width: 90vw; max-width: 600px; display: inline-block;">
+                <div class="d-grid gap-2">
+                    <input class="btn btn-primary" type="button" value="잔류 신청하기" style="font-weight: bold;" onclick="submitData()">
+                    <input class="btn btn-outline-primary" type="button" value="잔류 신청 현황 확인하기" onclick="location.href='https://stay.dimigo.me/apply'">
+                    <input class="btn btn-outline-primary" type="button" value="잔류 수정 및 취소하기" onclick="alert('잔류 수정 및 취소는 010-9539-4321 또는 생활관 담당 선생님께 문의해주세요.')">
+                    <input class="btn btn-outline-primary" type="button" value="(3학년만) 금요귀가 및 잔류 중 외출 신청하기" onclick="location.href='https://stay.dimigo.me/etc'">
+                    <p style="color: gray;">ⓘ 1, 2학년의 금요귀가 및 잔류 중 외출은 생활관 담당 선생님께서 추후 별도로 조사하실 예정입니다.</p>
+                </div>
+            </div>
+        </form>
+        <br><br>
+    </div>
+    <script>
+        function clickNumber(){
+            if(document.getElementById("number").value.slice(0, 1) == "3"){
+                if(document.getElementById("gender").value != "-"){
+                    document.getElementById("table3nd").style.display = "block";
+                } else{
+                    document.getElementById("table3nd").style.display = "none";
+                }
+            } else{
+                document.getElementById("table3nd").style.display = "none";
+            }
+        }
+        function clickGender(){
+            if(document.getElementById("gender").value == "F"){
+                for(var i = 0; i < 14; i++){
+                    for(var j = 1; j <= 18; j++){
+                        if(j > 9 && i == 0){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if(j > 9 && i == 1){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if(j > 9 && i == 12){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if(j > 9 && i == 13){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if(j <= 9){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else{
+                            document.getElementById(tableid[i] + String(j)).disabled = false;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-danger";
+                        }
+                    }
+                }
+            } else if(document.getElementById("gender").value == "M"){
+                for(var i = 0; i < 14; i++){
+                    for(var j = 1; j <= 18; j++){
+                        if(j > 9 && i == 0){
+                            document.getElementById(tableid[i] + String(j)).disabled = false;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-primary";
+                        } else if(j > 9 && i == 1){
+                            document.getElementById(tableid[i] + String(j)).disabled = false;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-primary";
+                        } else if(j > 9){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else{
+                            document.getElementById(tableid[i] + String(j)).disabled = false;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-primary";
+                        }
+                    }
+                }
+            } else if(document.getElementById("gender").value == "-"){
+                for(var i = 0; i < 14; i++){
+                    for(var j = 1; j <= 18; j++){
+                        if(j <= 9){
+                            document.getElementById(tableid[i] + String(j)).disabled = false;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-primary";
+                        } else{
+                            document.getElementById(tableid[i] + String(j)).disabled = false;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-danger";
+                        }
+                    }
+                }
+            }
+            var delList1 = [2, 4, 6, 8, 10, 12, 14, 16, 18];
+            var delList2 = [1, 3, 5, 7, 9, 11, 13, 15, 17];
+            for(var i = 0; i < 14; i++){
+                for(var j = 1; j <= 18; j++){
+                    if(i % 2 == 0){
+                        if(delList1.includes(j)){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        }
+                    } else{
+                        if(delList2.includes(j)){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        }
+                    }
+                }
+            }
+            const obj = JSON.parse(objText);
+            for(var i = 0; i < obj["place"].length; i++){
+                document.getElementById(obj["place"][i]).disabled = true;
+                if(Number(obj["place"][i].slice(1)) <= 9){
+                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "A"){
+                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "B"){
+                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                } else{
+                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-danger";
+                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                }
+            }
+            if(document.getElementById("number").value.slice(0, 1) == "3"){
+                if(document.getElementById("gender").value != "-"){
+                    document.getElementById("table3nd").style.display = "block";
+                } else{
+                    document.getElementById("table3nd").style.display = "none";
+                }
+            } else{
+                document.getElementById("table3nd").style.display = "none";
+            }
+        }
+        var clickCollapse = false;
+        function submitData(){
+            document.getElementById("number").value = document.getElementById("number").value.split(' ').join('');
+            document.getElementById("name").value = document.getElementById("name").value.split(' ').join('');
+            document.getElementById("num1").innerText = "학번 : " + document.getElementById("number").value;
+            document.getElementById("num2").innerText = "이름 : " + document.getElementById("name").value;
+            if(document.getElementById("gender").value == "M"){
+                document.getElementById("num3").innerText = "성별 : 남";
+            } else if(document.getElementById("gender").value == "F"){
+                document.getElementById("num3").innerText = "성별 : 여";
+            }
+            console.log(document.querySelector('input[name="place"]:checked').value)
+            if(document.querySelector('input[name="place"]:checked').value != "null"){
+                document.getElementById("num4").innerText = "좌석 : " + document.querySelector('input[name="place"]:checked').value;
+                document.getElementById("num5").style.display = "block";
+            } else{
+                document.getElementById("num5").style.display = "none";
+            }
+            if(document.getElementById("number").value.length != 4){
+                document.getElementById("info1").style.display = "none";
+                document.getElementById("info2").style.display = "block";
+                document.getElementById("info2").innerText = "학번을 네자리로 정확히 입력해주셔야 신청이 가능합니다.";
+                if(clickCollapse == false){
+                    var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                    var collapseList = collapseElementList.map(function (collapseEl) {
+                        return new bootstrap.Collapse(collapseEl)
+                    })
+                    clickCollapse = true;
+                }
+            } else if(document.getElementById("name").value.length == 0){
+                document.getElementById("info1").style.display = "none";
+                document.getElementById("info2").style.display = "block";
+                document.getElementById("info2").innerText = "이름을 입력해주셔야 신청이 가능합니다.";
+                if(clickCollapse == false){
+                    var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                    var collapseList = collapseElementList.map(function (collapseEl) {
+                        return new bootstrap.Collapse(collapseEl)
+                    })
+                    clickCollapse = true;
+                }
+            } else if(document.getElementById("gender").value == "-"){
+                document.getElementById("info1").style.display = "none";
+                document.getElementById("info2").style.display = "block";
+                document.getElementById("info2").innerText = "성별을 선택해주셔야 신청이 가능합니다.";
+                if(clickCollapse == false){
+                    var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                    var collapseList = collapseElementList.map(function (collapseEl) {
+                        return new bootstrap.Collapse(collapseEl)
+                    })
+                    clickCollapse = true;
+                }
+            } else if(document.querySelector('input[name="place"]:checked').value == "null" && document.getElementById("number").value.slice(0, 1) == "3"){
+                document.getElementById("info1").style.display = "none";
+                document.getElementById("info2").style.display = "block";
+                document.getElementById("info2").innerText = "좌석을 선택해주셔야 신청이 가능합니다.";
+                if(clickCollapse == false){
+                    var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                    var collapseList = collapseElementList.map(function (collapseEl) {
+                        return new bootstrap.Collapse(collapseEl)
+                    })
+                    clickCollapse = true;
+                }
+            } else{
+                document.getElementById("info1").style.display = "block";
+                document.getElementById("info2").style.display = "none";
+                if(clickCollapse == true){
+                    document.getElementById("form").submit();
+                }
+                if(clickCollapse == false){
+                    var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                    var collapseList = collapseElementList.map(function (collapseEl) {
+                        return new bootstrap.Collapse(collapseEl)
+                    })
+                    clickCollapse = true;
+                }
+            }
+        }
+        function clickInput(){
+            if(clickCollapse == true){
+                var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                var collapseList = collapseElementList.map(function (collapseEl) {
+                    return new bootstrap.Collapse(collapseEl)
+                })
+                clickCollapse = false;
+            }
+        }
+        var tableid = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
+        var code = "";
+        for(var i = 0; i < 14; i++){
+            code += '<tr>';
+            code += '<th scope="row">' + tableid[i] + '</th>'
+            for(var j = 1; j <= 18; j++){
+                if(j <= 9){
+                    code += '<td><input type="radio" name="place" class="btn-check" id="' + tableid[i] + String(j) + '" value="' + tableid[i] + String(j) + '"><label class="btn btn-outline-primary" id="Z' + tableid[i] + String(j) + '" for="' + tableid[i] + String(j) + '" onclick="clickInput()">' + tableid[i] + String(j) + '</label></td>';
+                } else{
+                    code += '<td><input type="radio" name="place" class="btn-check" id="' + tableid[i] + String(j) + '" value="' + tableid[i] + String(j) + '"><label class="btn btn-outline-danger" id="Z' + tableid[i] + String(j) + '" for="' + tableid[i] + String(j) + '" onclick="clickInput()">' + tableid[i] + String(j) + '</label></td>';
+                }
+            }
+            code += '</tr>';
+        }
+        document.getElementById("tableadded").innerHTML += code;
+        console.log(document.getElementById("tableadded").innerHTML);
+        var delList1 = [2, 4, 6, 8, 10, 12, 14, 16, 18];
+        var delList2 = [1, 3, 5, 7, 9, 11, 13, 15, 17];
+        for(var i = 0; i < 14; i++){
+            for(var j = 1; j <= 18; j++){
+                if(i % 2 == 0){
+                    if(delList1.includes(j)){
+                        document.getElementById(tableid[i] + String(j)).disabled = true;
+                        document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                    }
+                } else{
+                    if(delList2.includes(j)){
+                        document.getElementById(tableid[i] + String(j)).disabled = true;
+                        document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                    }
+                }
+                if(i >= 12 && j >= 8){
+                    document.getElementById(tableid[i] + String(j)).disabled = true;
+                    document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                }
+            }
+        }
+        var objText = "";
+        fetch("https://api.findflag.kr/dimigoin/stay/get", {
+            method: 'GET'
+        })
+        .then(function(response){
+            if (!response.ok){
+                fetch("https://api.findflag.kr/dimigoin/stay/get", {
+                    method: 'GET'
+                })
+                .then(function(response){
+                    if (!response.ok){
+                        alert("알 수 없는 오류로 인해 신청할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+                    } else{
+                        response.text().then(function (text){
+                            objText = text;
+                            const obj = JSON.parse(text);
+                            for(var i = 0; i < obj["place"].length; i++){
+                                document.getElementById(obj["place"][i]).disabled = true;
+                                if(Number(obj["place"][i].slice(1)) <= 9){
+                                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                                } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "A"){
+                                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                                } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "B"){
+                                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                                } else{
+                                    document.getElementById("Z" + obj["place"][i]).className = "btn btn-danger";
+                                    document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                                }
+                            }
+                        });
+                    }
+                }).catch(function(err){
+                    alert("알 수 없는 오류로 인해 신청할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+                });
+            } else{
+                response.text().then(function (text){
+                    objText = text;
+                    const obj = JSON.parse(text);
+                    for(var i = 0; i < obj["place"].length; i++){
+                        document.getElementById(obj["place"][i]).disabled = true;
+                        if(Number(obj["place"][i].slice(1)) <= 9){
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "A"){
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "B"){
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        } else{
+                            document.getElementById("Z" + obj["place"][i]).className = "btn btn-danger";
+                            document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                        }
+                    }
+                });
+            }
+        }).catch(function(err){
+            fetch("https://api.findflag.kr/dimigoin/stay/get", {
+                method: 'GET'
+            })
+            .then(function(response){
+                if (!response.ok){
+                    alert("알 수 없는 오류로 인해 신청할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+                } else{
+                    response.text().then(function (text){
+                        objText = text;
+                        const obj = JSON.parse(text);
+                        for(var i = 0; i < obj["place"].length; i++){
+                            document.getElementById(obj["place"][i]).disabled = true;
+                            if(Number(obj["place"][i].slice(1)) <= 9){
+                                document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                                document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                            }  else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "A"){
+                                document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                                document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                            } else if(Number(obj["place"][i].slice(1)) > 9 && obj["place"][i].slice(0, 1) == "B"){
+                                document.getElementById("Z" + obj["place"][i]).className = "btn btn-primary";
+                                document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                            } else{
+                                document.getElementById("Z" + obj["place"][i]).className = "btn btn-danger";
+                                document.getElementById("Z" + obj["place"][i]).innerText = obj[obj["place"][i]];
+                            }
+                        }
+                    });
+                }
+            }).catch(function(err){
+                alert("알 수 없는 오류로 인해 신청할 수 없는 상황입니다. 새로고침 시도 후에도 해결되지 않을 경우, 010-9539-4321로 연락 부탁드립니다.")
+            });
+        });
+        document.getElementById("A1").required = true;
+    </script>
+</body>
+</html>
