@@ -178,6 +178,12 @@
                         } else if(j > 9 && i == 1){
                             document.getElementById(tableid[i] + String(j)).disabled = false;
                             document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-danger";
+                        } else if (j > 9 && i == 10){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if (j > 9 && i == 11){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
                         } else if(j > 9 && i == 12){
                             document.getElementById(tableid[i] + String(j)).disabled = true;
                             document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
@@ -200,6 +206,12 @@
                             document.getElementById(tableid[i] + String(j)).disabled = true;
                             document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
                         } else if(j > 9 && i == 1){
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if (j > 7 && i == 12) {
+                            document.getElementById(tableid[i] + String(j)).disabled = true;
+                            document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
+                        } else if (j > 7 && i == 13) {
                             document.getElementById(tableid[i] + String(j)).disabled = true;
                             document.getElementById("Z" + tableid[i] + String(j)).className = "btn btn-outline-secondary";
                         } else if (j > 9 && i == 10) {
